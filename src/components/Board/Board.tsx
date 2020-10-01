@@ -7,7 +7,7 @@ const listIds = ['1001', '1002', '1003', '1004', '1005', '1006'];
 
 const Board: React.FC = () => {
   return (
-    <div>
+    <div className="Board">
       {listIds.map(
         (id: string): ReactElement => {
           return <List key={id} id={id} />

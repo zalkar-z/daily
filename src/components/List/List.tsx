@@ -22,8 +22,10 @@ const cards = [{
 ];
 
 const List: React.FC<Props> = ({ id }) => {
+  const listTitle = "Monday List";
   return (
-    <div>
+    <div className="list">
+      <strong className="listTitle">{listTitle}</strong>
       {cards.map(
         (card: Card): ReactElement => {
           return <Card key={card.id} id={card.id} title={card.title} />

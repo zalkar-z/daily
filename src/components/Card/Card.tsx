@@ -11,10 +11,10 @@ interface Props {
 const Card: React.FC<Props> = ({ id, title }) => {
   const checklistId = '3001';
   return (
-    <div>
+    <div className="Card">
       <p>ID: {id}</p>
       <p>TITLE: {title}</p>
-      <Checklist id={checklistId} />
+      {/* <Checklist id={checklistId} /> */}
     </div>
   )
 };
