@@ -1,5 +1,5 @@
 import React from 'react';
-import Checklist from '../Checklist/Checklist';
+import {Link} from 'react-router-dom';
 
 import './Card.css';
 
@@ -9,13 +9,13 @@ interface Props {
 }
 
 const Card: React.FC<Props> = ({ id, title }) => {
-  const checklistId = '3001';
   return (
-    <div className="Card">
-      <p>ID: {id}</p>
-      <p>TITLE: {title}</p>
-      {/* <Checklist id={checklistId} /> */}
-    </div>
+    <Link to="/checklist/12345">
+      <div className="Card">
+        <p>ID: {id}</p>
+        <p>TITLE: {title}</p>
+      </div>
+    </Link>
   )
 };
 
