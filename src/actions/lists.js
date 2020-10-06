@@ -1,17 +1,26 @@
+import shortid from 'shortid';
+
 export function getLists(store) {
-  let lists = localStorage.getItem('lists');
+  let lists = JSON.parse(localStorage.getItem('lists'));
   if (lists == null) lists = [];
 
   // update global store
   store.setState({ lists });
 }
 
-export function addList(store, newList) {
-  let lists = localStorage.getItem('lists');
+export function addList(store, newListName) {
+  let lists = JSON.parse(localStorage.getItem('lists'));
   if (lists == null) lists = [];
 
-  lists.push(newList);
+  const newList = {
+    id: shortid.generate(),
+    name: newListName,
+    cards: [],
+  }
 
-  // update global store
-  store.setState({ lists });
+  lists.push(newList);
+  localStorage.setItem('lists', JSON.stringify(lists));
+
+  // call getLists to update global state with latest list
+  getLists(store);
 }

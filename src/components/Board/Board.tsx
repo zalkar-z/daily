@@ -1,4 +1,4 @@
-import React, { ReactElement, useState, useEffect } from 'react';
+import React, { ReactElement, useState, useEffect, createRef } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 import useGlobal from '../../store';
 
@@ -14,18 +14,22 @@ interface Props {
   history: object,
 }
 
+interface List {
+  id: number,
+  name: string,
+  cards: Array<string>,
+}
+
 const Board: React.FC<Props & RouteComponentProps> = ({ match, history }) => {
   const [ modalVisible, setModalVisible ] = useState(false);
   const [globalState, globalActions] = useGlobal();
   const { lists } = globalState;
 
+  const newListNameInput: React.RefObject<HTMLInputElement> = createRef<HTMLInputElement>()
+
   useEffect(() => {
     globalActions.lists.getLists();
   }, []);
-
-  useEffect(() => {
-    console.log(lists);
-  }, [lists])
   
   useEffect(() => {
     if (has(match, 'params.id')) {
@@ -38,21 +42,29 @@ const Board: React.FC<Props & RouteComponentProps> = ({ match, history }) => {
     history.push('/');
   };
 
-  if (lists.length == 0) {
-    return (
-      <div>
-        <strong>You do not have any lists here...</strong>
-      </div>
-    )
+  function addList(e: React.KeyboardEvent<HTMLInputElement>): void {
+    if (newListNameInput.current === null) return;
+    if (newListNameInput.current.value.trim().length === 0) return;
+    if (e.key !== 'Enter') return;
+
+    const newListName = newListNameInput.current.value;
+    globalActions.lists.addList(newListName);
   }
 
   return (
     <div className="Board">
       {lists.map(
-        (id: string): ReactElement => {
-          return <List key={id} id={id} />
+        (list: List): ReactElement => {
+          return <List key={list.id} id={list.name} />
         }
       )}
+      <input
+        type="text"
+        placeholder="Add new list..."
+        autoFocus
+        ref={newListNameInput}
+        onKeyPress={(e: React.KeyboardEvent<HTMLInputElement>) => addList(e)}
+      />
       <Checklist id="123" show={modalVisible} onHide={hideChecklist} />
     </div>
   )
