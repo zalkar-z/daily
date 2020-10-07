@@ -5,8 +5,7 @@ import * as actions from '../actions/index';
 
 const initialState = {
   lists: [],
-  // cards: [],
-  // checklists: [],
+  activeChecklist: {},
 };
 
 const useGlobal = useGlobalHook(React, initialState, actions);
