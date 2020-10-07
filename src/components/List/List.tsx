@@ -1,34 +1,38 @@
-import React, { ReactElement } from 'react';
+import React, { useEffect, ReactElement } from 'react';
 import Card from '../Card/Card';
 
 import './List.css';
 
-interface Props {
-  id: string
-}
-
 interface Card {
   id: string,
-  title: string
+  title: string,
+  checklist: Checklist,
 }
 
-const cards = [{
-    id: '2001',
-    title: 'Personal Card',
-  }, {
-    id: '2002',
-    title: 'Work Card',
-  }
-];
+interface Checklist {
+  id: string, 
+  title: string,
+  todo: string[],
+}
+interface Props {
+  id: string,
+  name: string,
+  cards: Array<Card>,
+}
 
-const List: React.FC<Props> = ({ id }) => {
+const List: React.FC<Props> = ({ id, name, cards }) => {
   const listTitle = "Monday List";
+
+  useEffect(() => {
+    console.log(id, name, cards);
+  })
+
   return (
     <div className="list">
-      <strong className="listTitle">{listTitle}</strong>
+      <strong className="listTitle">{name}</strong>
       {cards.map(
         (card: Card): ReactElement => {
-          return <Card key={card.id} id={card.id} title={card.title} />
+          return <Card key={card.id} id={card.id} title={card.title} checklist={card.checklist} />
         }
       )}
     </div>

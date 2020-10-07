@@ -15,9 +15,21 @@ interface Props {
 }
 
 interface List {
-  id: number,
+  id: string,
   name: string,
-  cards: Array<string>,
+  cards: Array<Card>,
+}
+
+interface Card {
+  id: string,
+  title: string,
+  checklist: Checklist,
+}
+
+interface Checklist {
+  id: string, 
+  title: string,
+  todo: string[],
 }
 
 const Board: React.FC<Props & RouteComponentProps> = ({ match, history }) => {
@@ -55,7 +67,7 @@ const Board: React.FC<Props & RouteComponentProps> = ({ match, history }) => {
     <div className="Board">
       {lists.map(
         (list: List): ReactElement => {
-          return <List key={list.id} id={list.name} />
+          return <List key={list.id} id={list.id} name={list.name} cards={list.cards} />
         }
       )}
       <input

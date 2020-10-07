@@ -5,15 +5,22 @@ import './Card.css';
 
 interface Props {
   id: string,
-  title: string
+  title: string,
+  checklist: Checklist,
 }
 
-const Card: React.FC<Props> = ({ id, title }) => {
+interface Checklist {
+  id: string, 
+  title: string,
+  todo: string[],
+}
+
+const Card: React.FC<Props> = ({ title, checklist }) => {
+  const path = "/checklist/".concat(checklist.id);
   return (
-    <Link to="/checklist/12345">
+    <Link to={path}>
       <div className="Card">
-        <p>ID: {id}</p>
-        <p>TITLE: {title}</p>
+        <p>{title}</p>
       </div>
     </Link>
   )
