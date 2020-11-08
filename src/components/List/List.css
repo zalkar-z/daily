@@ -10,3 +10,10 @@
 .listTitle {
   padding-left: 5px;
 }
+
+.card-list-item {
+  background-color: #fff;
+  padding: 5px;
+  border-radius: 5px;
+  margin-top: 15px;
+}

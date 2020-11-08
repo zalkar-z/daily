@@ -9,8 +9,7 @@ export function getLists(store) {
 }
 
 export function addList(store, newListName) {
-  let lists = JSON.parse(localStorage.getItem('lists'));
-  if (lists == null) lists = [];
+  let lists = store.state.lists;
 
   const newList = {
     id: shortid.generate(),

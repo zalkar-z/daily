@@ -5,7 +5,7 @@ import useGlobal from '../../store';
 import { has } from 'lodash';
 
 import List from '../List/List';
-import Checklist from '../Checklist/Checklist';
+import Card from '../Card/Card';
 
 import './Board.css';
 
@@ -77,7 +77,7 @@ const Board: React.FC<Props & RouteComponentProps> = ({ match, history }) => {
         ref={newListNameInput}
         onKeyPress={(e: React.KeyboardEvent<HTMLInputElement>) => addList(e)}
       />
-      <Checklist id="123" show={modalVisible} onHide={hideChecklist} />
+      <Card show={modalVisible} onHide={hideChecklist} />
     </div>
   )
 };

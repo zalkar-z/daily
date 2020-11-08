@@ -1,7 +1,6 @@
 import React, { useEffect, ReactElement, createRef } from 'react';
+import {Link} from 'react-router-dom';
 import useGlobal from '../../store';
-
-import Card from '../Card/Card';
 
 import './List.css';
 
@@ -38,10 +37,16 @@ const List: React.FC<Props> = ({ id, name, cards }) => {
   return (
     <div className="list">
       <div>
-        <strong className="listTitle">{name}</strong>
+        <strong className="list-title">{name}</strong>
         {cards.map(
           (card: Card): ReactElement => {
-            return <Card key={card.id} id={card.id} title={card.title} checklist={card.checklist} />
+            return (
+              <Link to={"/card/".concat(card.id)} onClick={() => globalActions.cards.setActiveCard(card.id)}>
+                <div className="card-list-item">
+                  <p>{card.title}</p>
+                </div>
+              </Link>
+            )
           }
         )}
       </div>

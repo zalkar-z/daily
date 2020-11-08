@@ -16,7 +16,7 @@ ReactDOM.render(
     <Router>
       <Switch>
         <Route path="/" exact component={Board} />
-        <Route path="/checklist/:id" component={Board} />
+        <Route path="/card/:id" component={Board} />
       </Switch>
     </Router>
   </React.StrictMode>,
