@@ -1,5 +1,5 @@
 import React, { ReactElement, createRef } from 'react';
-import Modal from 'react-bootstrap/Modal';
+import { Modal, Form, Row, Col, Button } from 'react-bootstrap';
 import useGlobal from '../../store';
 
 interface Props {
@@ -36,11 +36,36 @@ const Checklist: React.FC<Props> = ({ show, onHide }) => {
         </Modal.Header>
 
         <Modal.Body>
-          <ul>
+          <ul style={{ listStyleType: 'none', padding: '0' }}>
             {checklist.map(
-              (check: Check): ReactElement => {
+              (check: Check, index: number): ReactElement => {
                 return (
-                  <li>{check.title} - {check.isComplete ? 'Complete' : 'Not complete'}</li>
+                  <li>
+                    <Row>
+                      <Col md="2">
+                        <Form>
+                          <Form.Group controlId="todoCheckbox">
+                            <Form.Check 
+                              type="checkbox" 
+                              checked={check.isComplete}
+                              onChange={(e: any) => globalActions.cards.updateChecklistItem(index, e.target.checked)} />
+                          </Form.Group>
+                        </Form>
+                      </Col>
+                      <Col>
+                        <span>{check.title} - {check.isComplete ? 'Complete' : 'Not complete'}</span>
+                      </Col>
+                      <Col>
+                        <Button 
+                          variant="outline-danger" 
+                          size="sm"
+                          onClick={() => globalActions.cards.deleteChecklistItem(index)}
+                        >
+                          Delete
+                        </Button>
+                      </Col>
+                    </Row>
+                  </li>
                 )
               }
             )}
@@ -49,7 +74,7 @@ const Checklist: React.FC<Props> = ({ show, onHide }) => {
           <div style={{ marginTop: '10px' }}>
             <input
               type="text"
-              placeholder="Add a new card..."
+              placeholder="Add a new task..."
               autoFocus
               ref={newChecklistItemInput}
               onKeyPress={(e: React.KeyboardEvent<HTMLInputElement>) => addChecklistItem(e)}

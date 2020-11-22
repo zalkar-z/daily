@@ -1,6 +1,5 @@
 import shortid from 'shortid';
 import { getLists } from './lists';
-import { act } from 'react-dom/test-utils';
 
 export function addCard(store, listId, newCardName) {
   let lists = store.state.lists;
@@ -41,6 +40,32 @@ export function addChecklistItem(store, title) {
     title: title,
     isComplete: false,
   });
+
+  activeList.cards[activeList.cards.findIndex(card => card.id === activeCard.id)] = activeCard;
+  lists[lists.findIndex(list => list.id === activeList.id)] = activeList;
+
+  localStorage.setItem('lists', JSON.stringify(lists));
+
+  store.setState({ lists, activeList, activeCard });
+}
+
+export function updateChecklistItem(store, index, isComplete) {
+  let { activeList, activeCard, lists } = store.state;
+
+  activeCard.checklist[index].isComplete = isComplete;
+
+  activeList.cards[activeList.cards.findIndex(card => card.id === activeCard.id)] = activeCard;
+  lists[lists.findIndex(list => list.id === activeList.id)] = activeList;
+
+  localStorage.setItem('lists', JSON.stringify(lists));
+
+  store.setState({ lists, activeList, activeCard });
+}
+
+export function deleteChecklistItem(store, index) {
+  let { activeList, activeCard, lists } = store.state;
+
+  activeCard.checklist.splice(index, 1);
 
   activeList.cards[activeList.cards.findIndex(card => card.id === activeCard.id)] = activeCard;
   lists[lists.findIndex(list => list.id === activeList.id)] = activeList;
