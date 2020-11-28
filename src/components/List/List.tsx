@@ -44,8 +44,8 @@ const List: React.FC<Props> = ({ id, name, cards }) => {
         {cards.map(
           (card: Card): ReactElement => {
             return (
-              <Link key={card.id} to={"/card/".concat(card.id)} onClick={() => globalActions.cards.setActiveCard(card.id)}>
-                <div className="card-list-item">
+              <Link className="card-list-item" key={card.id} to={"/card/".concat(card.id)} onClick={() => globalActions.cards.setActiveCard(card.id)}>
+                <div>
                   <p>{card.title}</p>
                 </div>
               </Link>
@@ -53,8 +53,9 @@ const List: React.FC<Props> = ({ id, name, cards }) => {
           }
         )}
       </div>
-      <div style={{ marginTop: '10px' }}>
+      <div>
         <input
+          className="card-list-item"
           type="text"
           placeholder="Add a new card..."
           autoFocus
@@ -63,7 +64,9 @@ const List: React.FC<Props> = ({ id, name, cards }) => {
         />
       </div>
 
-      <Button size="sm" onClick={() => globalActions.lists.deleteList(id)}>Delete this list</Button>
+      <div style={{ marginTop: '20px', textAlign: 'right' }}>
+        <Button size="sm" onClick={() => globalActions.lists.deleteList(id)}>Delete this list</Button>
+      </div>
     </div>
   )
 };

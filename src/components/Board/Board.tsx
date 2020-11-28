@@ -8,6 +8,7 @@ import List from '../List/List';
 import Card from '../Card/Card';
 
 import './Board.css';
+import '../List/List.css'
 
 interface Props {
   match: object,
@@ -72,13 +73,16 @@ const Board: React.FC<Props & RouteComponentProps> = ({ match, history }) => {
           return <List key={list.id} id={list.id} name={list.name} cards={list.cards} />
         }
       )}
-      <input
-        type="text"
-        placeholder="Add new list..."
-        autoFocus
-        ref={newListNameInput}
-        onKeyPress={(e: React.KeyboardEvent<HTMLInputElement>) => addList(e)}
-      />
+      <div className="list">
+        <input
+          className="card-list-item"
+          type="text"
+          placeholder="Add new list..."
+          autoFocus
+          ref={newListNameInput}
+          onKeyPress={(e: React.KeyboardEvent<HTMLInputElement>) => addList(e)}
+        />
+      </div>
       <Card show={modalVisible} onHide={hideChecklist} params={match.params} />
     </div>
   )
