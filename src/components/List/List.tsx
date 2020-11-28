@@ -44,7 +44,7 @@ const List: React.FC<Props> = ({ id, name, cards }) => {
         {cards.map(
           (card: Card): ReactElement => {
             return (
-              <Link to={"/card/".concat(card.id)} onClick={() => globalActions.cards.setActiveCard(card.id)}>
+              <Link key={card.id} to={"/card/".concat(card.id)} onClick={() => globalActions.cards.setActiveCard(card.id)}>
                 <div className="card-list-item">
                   <p>{card.title}</p>
                 </div>

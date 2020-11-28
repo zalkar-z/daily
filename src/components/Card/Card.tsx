@@ -47,7 +47,7 @@ const Card: React.FC<Props> = ({ show, onHide }) => {
             {checklist.map(
               (check: Check, index: number): ReactElement => {
                 return (
-                  <li>
+                  <li key={index}>
                     <Row>
                       <Col md="2">
                         <Form>
