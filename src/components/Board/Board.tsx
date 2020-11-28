@@ -5,9 +5,10 @@ import useGlobal from '../../store';
 import { has } from 'lodash';
 
 import List from '../List/List';
-import Checklist from '../Checklist/Checklist';
+import Card from '../Card/Card';
 
 import './Board.css';
+import '../List/List.css'
 
 interface Props {
   match: object,
@@ -41,7 +42,7 @@ const Board: React.FC<Props & RouteComponentProps> = ({ match, history }) => {
 
   useEffect(() => {
     globalActions.lists.getLists();
-  }, []);
+  }, [globalActions.lists]);
   
   useEffect(() => {
     if (has(match, 'params.id')) {
@@ -61,6 +62,8 @@ const Board: React.FC<Props & RouteComponentProps> = ({ match, history }) => {
 
     const newListName = newListNameInput.current.value;
     globalActions.lists.addList(newListName);
+
+    newListNameInput.current.value = "";
   }
 
   return (
@@ -70,14 +73,17 @@ const Board: React.FC<Props & RouteComponentProps> = ({ match, history }) => {
           return <List key={list.id} id={list.id} name={list.name} cards={list.cards} />
         }
       )}
-      <input
-        type="text"
-        placeholder="Add new list..."
-        autoFocus
-        ref={newListNameInput}
-        onKeyPress={(e: React.KeyboardEvent<HTMLInputElement>) => addList(e)}
-      />
-      <Checklist id="123" show={modalVisible} onHide={hideChecklist} />
+      <div className="list">
+        <input
+          className="card-list-item"
+          type="text"
+          placeholder="Add new list..."
+          autoFocus
+          ref={newListNameInput}
+          onKeyPress={(e: React.KeyboardEvent<HTMLInputElement>) => addList(e)}
+        />
+      </div>
+      <Card show={modalVisible} onHide={hideChecklist} params={match.params} />
     </div>
   )
 };

@@ -1,7 +1,7 @@
-import React, { useEffect, ReactElement, createRef } from 'react';
+import React, { ReactElement, createRef } from 'react';
+import { Button } from 'react-bootstrap';
+import {Link} from 'react-router-dom';
 import useGlobal from '../../store';
-
-import Card from '../Card/Card';
 
 import './List.css';
 
@@ -23,7 +23,7 @@ interface Props {
 }
 
 const List: React.FC<Props> = ({ id, name, cards }) => {
-  const [globalState, globalActions] = useGlobal();
+  const [, globalActions] = useGlobal();
   const newCardNameInput: React.RefObject<HTMLInputElement> = createRef<HTMLInputElement>()
 
   function addCard(e: React.KeyboardEvent<HTMLInputElement>): void {
@@ -33,26 +33,39 @@ const List: React.FC<Props> = ({ id, name, cards }) => {
 
     const newCardName = newCardNameInput.current.value;
     globalActions.cards.addCard(id, newCardName);
+
+    newCardNameInput.current.value = "";
   }
 
   return (
     <div className="list">
       <div>
-        <strong className="listTitle">{name}</strong>
+        <strong className="list-title">{name}</strong>
         {cards.map(
           (card: Card): ReactElement => {
-            return <Card key={card.id} id={card.id} title={card.title} checklist={card.checklist} />
+            return (
+              <Link className="card-list-item" key={card.id} to={"/card/".concat(card.id)} onClick={() => globalActions.cards.setActiveCard(card.id)}>
+                <div>
+                  <p>{card.title}</p>
+                </div>
+              </Link>
+            )
           }
         )}
       </div>
-      <div style={{ marginTop: '10px' }}>
+      <div>
         <input
+          className="card-list-item"
           type="text"
           placeholder="Add a new card..."
           autoFocus
           ref={newCardNameInput}
           onKeyPress={(e: React.KeyboardEvent<HTMLInputElement>) => addCard(e)}
         />
+      </div>
+
+      <div style={{ marginTop: '20px', textAlign: 'right' }}>
+        <Button size="sm" onClick={() => globalActions.lists.deleteList(id)}>Delete this list</Button>
       </div>
     </div>
   )

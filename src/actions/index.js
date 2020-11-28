@@ -1,5 +1,4 @@
 import * as cards from './cards';
 import * as lists from './lists';
-import * as checklists from './checklists';
 
-export { lists, cards, checklists };
+export { lists, cards };
