@@ -8,10 +8,7 @@ export function addCard(store, listId, newCardName) {
   const newCard = {
     id: shortid.generate(),
     title: newCardName,
-    checklist: [{
-      title: 'Sample TODO',
-      isComplete: false,
-    }]
+    checklist: []
   }
 
   let index = lists.findIndex(list => list.id === listId);
