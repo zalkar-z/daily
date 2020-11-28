@@ -1,4 +1,4 @@
-import React, { useEffect, ReactElement, createRef } from 'react';
+import React, { ReactElement, createRef } from 'react';
 import { Button } from 'react-bootstrap';
 import {Link} from 'react-router-dom';
 import useGlobal from '../../store';
@@ -23,7 +23,7 @@ interface Props {
 }
 
 const List: React.FC<Props> = ({ id, name, cards }) => {
-  const [globalState, globalActions] = useGlobal();
+  const [, globalActions] = useGlobal();
   const newCardNameInput: React.RefObject<HTMLInputElement> = createRef<HTMLInputElement>()
 
   function addCard(e: React.KeyboardEvent<HTMLInputElement>): void {

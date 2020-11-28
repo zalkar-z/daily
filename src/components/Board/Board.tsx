@@ -41,7 +41,7 @@ const Board: React.FC<Props & RouteComponentProps> = ({ match, history }) => {
 
   useEffect(() => {
     globalActions.lists.getLists();
-  }, []);
+  }, [globalActions.lists]);
   
   useEffect(() => {
     if (has(match, 'params.id')) {
