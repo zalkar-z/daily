@@ -1,4 +1,6 @@
 .Board {
+  display: flex;
+  align-items: flex-start;
   padding: 30px;
   white-space: nowrap;
 }
