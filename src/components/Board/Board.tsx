@@ -79,7 +79,7 @@ const Board: React.FC<Props & RouteComponentProps> = ({ match, history }) => {
         ref={newListNameInput}
         onKeyPress={(e: React.KeyboardEvent<HTMLInputElement>) => addList(e)}
       />
-      <Card show={modalVisible} onHide={hideChecklist} />
+      <Card show={modalVisible} onHide={hideChecklist} params={match.params} />
     </div>
   )
 };

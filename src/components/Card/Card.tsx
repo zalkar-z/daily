@@ -1,10 +1,16 @@
-import React, { ReactElement, createRef } from 'react';
+import React, { ReactElement, createRef, useEffect } from 'react';
 import { Modal, Form, Row, Col, Button } from 'react-bootstrap';
 import useGlobal from '../../store';
 
+import { has } from 'lodash';
+
+interface Params {
+  id?: string,
+}
 interface Props {
   show: boolean,
   onHide: Function,
+  params: Params,
 }
 
 interface Check {
@@ -12,10 +18,17 @@ interface Check {
   isComplete: boolean,
 }
 
-const Card: React.FC<Props> = ({ show, onHide }) => {
+const Card: React.FC<Props> = ({ show, onHide, params }) => {
   const [globalState, globalActions] = useGlobal();
   const { activeCard } = globalState;
   const { checklist } = activeCard;
+
+  useEffect(() => {
+    if(has(params, 'id')) {
+      globalActions.lists.getLists();
+      globalActions.cards.setActiveCard(params.id);
+    }
+  }, [params, globalActions]);
 
   const newChecklistItemInput: React.RefObject<HTMLInputElement> = createRef<HTMLInputElement>();
 
