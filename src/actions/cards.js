@@ -23,6 +23,18 @@ export function addCard(store, listId, newCardName) {
   getLists(store);
 }
 
+export function deleteCard(store, cardId) {
+  let { lists, activeList } = store.state;
+
+  activeList.cards = activeList.cards.filter(card => card.id !== cardId);
+
+  lists[lists.findIndex(list => list.id === activeList.id)] = activeList;
+
+  localStorage.setItem('lists', JSON.stringify(lists));
+
+  store.setState({ lists, activeList });
+}
+
 export function setActiveCard(store, cardId) {
   let lists = store.state.lists;
   if (lists == null) lists = [];

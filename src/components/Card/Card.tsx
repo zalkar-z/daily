@@ -12,7 +12,7 @@ interface Check {
   isComplete: boolean,
 }
 
-const Checklist: React.FC<Props> = ({ show, onHide }) => {
+const Card: React.FC<Props> = ({ show, onHide }) => {
   const [globalState, globalActions] = useGlobal();
   const { activeCard } = globalState;
   const { checklist } = activeCard;
@@ -26,6 +26,11 @@ const Checklist: React.FC<Props> = ({ show, onHide }) => {
 
     const newChecklistItem = newChecklistItemInput.current.value;
     globalActions.cards.addChecklistItem(newChecklistItem);
+  }
+
+  const deleteCard = () => {
+    globalActions.cards.deleteCard(activeCard.id);
+    onHide();
   }
 
   return (
@@ -80,10 +85,12 @@ const Checklist: React.FC<Props> = ({ show, onHide }) => {
               onKeyPress={(e: React.KeyboardEvent<HTMLInputElement>) => addChecklistItem(e)}
             />
           </div>
+
+          <Button size="sm" onClick={() => deleteCard()}>Delete this card</Button>
         </Modal.Body>
       </Modal>
     </div>
   )
 };
 
-export default Checklist;
+export default Card;
