@@ -26,6 +26,8 @@ const Card: React.FC<Props> = ({ show, onHide }) => {
 
     const newChecklistItem = newChecklistItemInput.current.value;
     globalActions.cards.addChecklistItem(newChecklistItem);
+    
+    newChecklistItemInput.current.value = "";
   }
 
   const deleteCard = () => {

@@ -33,6 +33,8 @@ const List: React.FC<Props> = ({ id, name, cards }) => {
 
     const newCardName = newCardNameInput.current.value;
     globalActions.cards.addCard(id, newCardName);
+
+    newCardNameInput.current.value = "";
   }
 
   return (

@@ -61,6 +61,8 @@ const Board: React.FC<Props & RouteComponentProps> = ({ match, history }) => {
 
     const newListName = newListNameInput.current.value;
     globalActions.lists.addList(newListName);
+
+    newListNameInput.current.value = "";
   }
 
   return (
