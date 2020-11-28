@@ -1,4 +1,5 @@
 import React, { useEffect, ReactElement, createRef } from 'react';
+import { Button } from 'react-bootstrap';
 import {Link} from 'react-router-dom';
 import useGlobal from '../../store';
 
@@ -59,6 +60,8 @@ const List: React.FC<Props> = ({ id, name, cards }) => {
           onKeyPress={(e: React.KeyboardEvent<HTMLInputElement>) => addCard(e)}
         />
       </div>
+
+      <Button size="sm" onClick={() => globalActions.lists.deleteList(id)}>Delete this list</Button>
     </div>
   )
 };

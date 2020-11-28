@@ -23,3 +23,15 @@ export function addList(store, newListName) {
   // call getLists to update global state with latest list
   getLists(store);
 }
+
+export function deleteList(store, listId) {
+  let { lists, activeList } = store.state;
+
+  lists = lists.filter(list => list.id !== listId);
+
+  localStorage.setItem('lists', JSON.stringify(lists));
+
+  activeList = {cards: []};
+
+  store.setState({ lists, activeList });
+}
