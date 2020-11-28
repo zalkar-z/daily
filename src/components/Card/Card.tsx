@@ -4,6 +4,8 @@ import useGlobal from '../../store';
 
 import { has } from 'lodash';
 
+import '../List/List.css'
+
 interface Params {
   id?: string,
 }
@@ -62,20 +64,20 @@ const Card: React.FC<Props> = ({ show, onHide, params }) => {
                 return (
                   <li key={index}>
                     <Row>
-                      <Col md="2">
+                      <Col md="1">
                         <Form>
                           <Form.Group controlId="todoCheckbox">
                             <Form.Check 
-                              type="checkbox" 
+                              type="checkbox"
                               checked={check.isComplete}
                               onChange={(e: any) => globalActions.cards.updateChecklistItem(index, e.target.checked)} />
                           </Form.Group>
                         </Form>
                       </Col>
-                      <Col>
-                        <span>{check.title} - {check.isComplete ? 'Complete' : 'Not complete'}</span>
+                      <Col style={{ textAlign: 'left' }}>
+                        <span>{check.title}</span>
                       </Col>
-                      <Col>
+                      <Col md="2">
                         <Button 
                           variant="outline-danger" 
                           size="sm"
@@ -93,6 +95,7 @@ const Card: React.FC<Props> = ({ show, onHide, params }) => {
 
           <div style={{ marginTop: '10px' }}>
             <input
+              className="card-list-item"
               type="text"
               placeholder="Add a new task..."
               autoFocus
@@ -100,8 +103,10 @@ const Card: React.FC<Props> = ({ show, onHide, params }) => {
               onKeyPress={(e: React.KeyboardEvent<HTMLInputElement>) => addChecklistItem(e)}
             />
           </div>
-
-          <Button size="sm" onClick={() => deleteCard()}>Delete this card</Button>
+            
+          <div style={{ marginTop: '10px', textAlign: 'right' }}>
+            <Button size="sm" onClick={() => deleteCard()}>Delete this card</Button>
+          </div>
         </Modal.Body>
       </Modal>
     </div>
